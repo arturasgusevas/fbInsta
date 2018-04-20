@@ -5,8 +5,8 @@
     <span  class="spacer"></span>
     <mat-icon [routerLink]="['sign-up']" class="a-icon" *ngIf="!(auth.user | async)">favorite</mat-icon>
     <mat-icon [routerLink]="['sign-in']" class="a-icon" *ngIf="!(auth.user | async)">perm_identity</mat-icon>
+    <mat-icon [routerLink]="['post', 'new']" class="a-icon" *ngIf="(auth.user | async)">add</mat-icon>
     <span routerLink="/profile" *ngIf="(auth.user | async)">{{(auth.user | async)?.displayName}}</span>
-    <mat-icon [routerLink]="['post']" class="a-icon" *ngIf="(auth.user | async)">info</mat-icon>
-    <mat-icon (click)="signOut()" class="a-icon" *ngIf="(auth.user | async)">delete</mat-icon>        
+    <mat-icon (click)="signOut()" class="a-icon" *ngIf="(auth.user | async)">delete</mat-icon>
   </mat-toolbar-row>
 </mat-toolbar>

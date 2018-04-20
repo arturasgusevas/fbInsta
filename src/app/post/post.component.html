@@ -1,3 +1,40 @@
-<p>
-  post works!
-</p>
+<mat-card class="post-container">
+  <mat-horizontal-stepper #stepper="matHorizontalStepper">
+    <mat-step [stepControl]="firstFormGroup">
+      <ng-template matStepLabel>Upload</ng-template>
+        <div *ngIf="!post.photoURL" (click)="fileUpload.click()" class="upload-image">
+          <h2>Click here to upload image</h2>
+          <button  mat-mini-fab color="white">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+        <input (change)="detectFile($event)" #fileUpload id="hidden-from-screen" type="file" required>
+        <img *ngIf="post.photoURL" src="{{post.photoURL}}" alt="">
+        <div *ngIf="post.photoURL" class="delete-photo">
+          <button (click)="deletePhoto()" mat-mini-fab color="warn">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+        <ng-template matStepLabel>Comment</ng-template>
+          <img *ngIf="post.photoURL" src="{{post.photoURL}}" alt="">
+          <textarea matInput placeholder="Write your comment here..."  required></textarea>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <img *ngIf="post.photoURL" src="{{post.photoURL}}" alt="">
+      <div class="comment">
+
+      </div>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</mat-card>

@@ -17,19 +17,24 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NavbarComponent } from './ui/navbar/navbar.component';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
+import { ProfileComponent } from './profile/profile.component';
 //Services
 import { AuthService } from './core/auth.service';
 import { AuthGuard } from './core/auth.guard';
+import { UserService } from './_services/user.service';
+import { PostService } from './_services/post.service';
 //Material
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { LoginComponent } from './auth/login/login.component';
-import { RegisterComponent } from './auth/register/register.component';
-import { ProfileComponent } from './profile/profile.component';
+
 import { PostComponent } from './post/post.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatStepperModule } from '@angular/material/stepper';
 
 @NgModule({
   declarations: [
@@ -55,10 +60,12 @@ import { PostComponent } from './post/post.component';
     MatCardModule,
     MatInputModule,
     MatButtonModule,
+    MatTabsModule,
+    MatStepperModule,
     AngularFirestoreModule,
     AngularFireAuthModule
   ],
-  providers: [AuthService, AuthGuard],
+  providers: [AuthService, AuthGuard, UserService, PostService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
