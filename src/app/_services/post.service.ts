@@ -48,17 +48,21 @@ export class PostService {
     return this.getOnePost(id).update(upload);
   }
 
+  updateText(id, postText){
+    return this.getOnePost(id).update({'postText': postText});
+  }
+
   createPostPicture(uid){
           const picture = {
           "user_uid": uid,
           "status": "draft",
           "photoURL": "",
-          "comment": ""
+          "postText": ""
         }
         return this.afs.collection('posts').add(picture);
       }
 
-      
+
 
       deletePhoto(id, pictureName){
         this.getOnePost(id).update({

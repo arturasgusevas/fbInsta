@@ -13,9 +13,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class PostComponent implements OnInit {
 
   post: any = {
-    photoURL: ""
+    photoURL: "",
+    postText: ""
   }
   id: string;
+
+
   constructor(
     private _pS: PostService,
     private _auth: AuthService,
@@ -61,6 +64,10 @@ export class PostComponent implements OnInit {
 
   deletePhoto(){
     this._pS.deletePhoto(this.id, this.post.imageName)
+  }
+
+  updateText(){
+    this._pS.updateText(this.id, this.post.postText)
   }
 
 }

@@ -10,6 +10,7 @@
         </div>
         <input (change)="detectFile($event)" #fileUpload id="hidden-from-screen" type="file" required>
         <img *ngIf="post.photoURL" src="{{post.photoURL}}" alt="">
+        <button *ngIf="post.photoURL" mat-button matStepperNext>Next</button>
         <div *ngIf="post.photoURL" class="delete-photo">
           <button (click)="deletePhoto()" mat-mini-fab color="warn">
             <mat-icon>delete</mat-icon>
@@ -19,17 +20,17 @@
     <mat-step [stepControl]="secondFormGroup">
         <ng-template matStepLabel>Comment</ng-template>
           <img *ngIf="post.photoURL" src="{{post.photoURL}}" alt="">
-          <textarea matInput placeholder="Write your comment here..."  required></textarea>
+          <textarea [(ngModel)]="post.postText" matInput placeholder="Write your comment here..."  required></textarea>
         <div>
           <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
+          <button (click)="updateText()" mat-button matStepperNext>Next</button>
         </div>
     </mat-step>
     <mat-step>
       <ng-template matStepLabel>Done</ng-template>
       <img *ngIf="post.photoURL" src="{{post.photoURL}}" alt="">
       <div class="comment">
-
+        {{post.postText}}
       </div>
       <div>
         <button mat-button matStepperPrevious>Back</button>
