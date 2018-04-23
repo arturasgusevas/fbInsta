@@ -1,0 +1,8 @@
+<mat-card class="dashboard-container" *ngFor="let post of posts | async">
+  <a [routerLink]="['../', 'profile']">{{(post.user | async)?.displayName}}</a>
+  <img *ngIf="post.photoURL" src="{{post.photoURL}}" alt="">
+  <div class="comment">
+    {{post.postText}}
+  </div>
+
+</mat-card>

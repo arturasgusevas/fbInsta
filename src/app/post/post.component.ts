@@ -14,9 +14,10 @@ export class PostComponent implements OnInit {
 
   post: any = {
     photoURL: "",
-    postText: ""
+    postText: "",
   }
   id: string;
+  status: string;
 
 
   constructor(
@@ -53,7 +54,6 @@ export class PostComponent implements OnInit {
   detectFile(event: Event){
     const selectedFile = (event.target as HTMLInputElement).files;
     const files = selectedFile;
-    console.log(files)
     if(!files || files.length === 0){
       console.log('no files found');
       return;
@@ -68,6 +68,10 @@ export class PostComponent implements OnInit {
 
   updateText(){
     this._pS.updateText(this.id, this.post.postText)
+  }
+
+  updateStatus(){
+    this._pS.updateStatus(this.id, this.status)
   }
 
 }

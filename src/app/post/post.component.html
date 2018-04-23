@@ -35,6 +35,7 @@
       <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button (click)="stepper.reset()">Reset</button>
+        <button routerLink="/dashboard" (click)="updateStatus(); updateText()" mat-button>Post</button>
       </div>
     </mat-step>
   </mat-horizontal-stepper>

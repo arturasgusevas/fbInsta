@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PostService } from '../_services/post.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,9 +8,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  posts: any;
+  post: any = {
+    photoURL: "",
+    postText: "",
+  }
+  id: string;
+
+  constructor(private _pS: PostService) { }
 
   ngOnInit() {
+    this.posts = this._pS.getAllActivePosts()
+  }
+
+  updateText(){
+    this._pS.updateText(this.id, this.post.postText)
+  }
+
+  deletePhoto(){
+    this._pS.deletePhoto(this.id, this.posts.imageName)
   }
 
 }

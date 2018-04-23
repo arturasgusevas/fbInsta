@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../_services/user.service';
 
+import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../core/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -11,12 +13,25 @@ export class ProfileComponent implements OnInit {
 
   user: any;
   editable = false;
-  constructor(private _uS: UserService) { }
+  id: string;
+  constructor(
+    private _uS: UserService,
+    private aR: ActivatedRoute,
+    private auth: AuthService
+    ) { }
 
   ngOnInit() {
-    this.user = this._uS.getProfileInfo().subscribe(
-      user => this.user = user
-    );
+    this.id = this.aR.snapshot.params['id'];
+
+    if(!this.id){
+      this.user = this._uS.getProfileInfo().subscribe(
+        user => this.user = user
+      )
+    }else{
+      this._uS.getProfile(this.id).valueChanges().subscribe(
+        user => this.user = user
+      )
+    }
   }
 
   toggleName(){
@@ -36,7 +51,6 @@ export class ProfileComponent implements OnInit {
       console.log('no files found');
       return;
     }
-
     this._uS.uploadProfilePicture(files[0], this.user.uid);
   }
 

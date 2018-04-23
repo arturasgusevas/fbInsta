@@ -2,14 +2,16 @@ import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
 import {AuthService } from '../core/auth.service';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
-
+import { UserService } from './user.service';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class PostService {
 
   constructor(
     private _aS: AuthService,
-    private afs: AngularFirestore
+    private afs: AngularFirestore,
+    private _uS: UserService
     ) { }
 
   uploadPicture(upload, id){
@@ -52,17 +54,21 @@ export class PostService {
     return this.getOnePost(id).update({'postText': postText});
   }
 
+  updateStatus(id, status){
+    return this.getOnePost(id).update({status: 'active'});
+  }
+
   createPostPicture(uid){
           const picture = {
           "user_uid": uid,
           "status": "draft",
           "photoURL": "",
-          "postText": ""
+          "postText": "",
+          "created_at": new Date().getTime(),
+          "updated_at": new Date().getTime()
         }
         return this.afs.collection('posts').add(picture);
       }
-
-
 
       deletePhoto(id, pictureName){
         this.getOnePost(id).update({
@@ -74,6 +80,31 @@ export class PostService {
             storageRef.child(`posts/${pictureName}`).delete();
           }
         );
+      }
+
+      getAllActivePosts(){
+        return this.afs.collection('posts',
+        (ref) => ref
+        .where('status', '==', 'active')
+        .orderBy('created_at', 'desc'))
+        .snapshotChanges().map(
+          (posts => {
+            return posts.map(
+              post => {
+                const data = post.payload.doc.data();
+                const user = this._uS.getProfile(data.user_uid).valueChanges();
+
+                return {
+                  id: post.payload.doc.id,
+                  user_uid: data.user_uid,
+                  description: data.description,
+                  user: user,
+                  photoURL: data.photoURL,
+                }
+              }
+            )
+          })
+        )
       }
 
 }

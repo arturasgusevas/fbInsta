@@ -1,0 +1,24 @@
+.dashboard-container{
+  max-width: 600px;
+  margin: 20px auto;
+  img{
+    margin-top: 20px;
+    margin-bottom: 50px;
+    width: 90%;
+    position: relative;
+  }
+  a{
+    position: absolute;
+    text-decoration: none;
+    color: black;
+  }
+  .comment{
+    width: 99%;
+    position: absolute;
+  }
+  .delete-photo{
+    position: absolute;
+    top: 100px;
+    right: 30px;
+  }
+}
