@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
-import {AuthService } from '../core/auth.service';
+import { AuthService } from '../core/auth.service';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { UserService } from './user.service';
 import { Observable } from 'rxjs/Observable';
@@ -100,6 +100,7 @@ export class PostService {
                   description: data.description,
                   user: user,
                   photoURL: data.photoURL,
+                  postText: data.postText
                 }
               }
             )

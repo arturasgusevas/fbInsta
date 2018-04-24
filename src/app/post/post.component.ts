@@ -55,7 +55,6 @@ export class PostComponent implements OnInit {
     const selectedFile = (event.target as HTMLInputElement).files;
     const files = selectedFile;
     if(!files || files.length === 0){
-      console.log('no files found');
       return;
     }
     this._pS.uploadPicture(files[0], this.id);

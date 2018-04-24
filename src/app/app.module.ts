@@ -25,6 +25,7 @@ import { AuthService } from './core/auth.service';
 import { AuthGuard } from './core/auth.guard';
 import { UserService } from './_services/user.service';
 import { PostService } from './_services/post.service';
+import { CommentService } from'./_services/comment.service';
 //Material
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -35,6 +36,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { PostComponent } from './post/post.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatStepperModule } from '@angular/material/stepper';
+import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,8 @@ import { MatStepperModule } from '@angular/material/stepper';
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
-    PostComponent
+    PostComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +68,7 @@ import { MatStepperModule } from '@angular/material/stepper';
     AngularFirestoreModule,
     AngularFireAuthModule
   ],
-  providers: [AuthService, AuthGuard, UserService, PostService],
+  providers: [AuthService, AuthGuard, UserService, PostService, CommentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

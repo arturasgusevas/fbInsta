@@ -1,8 +1,20 @@
 <mat-card class="dashboard-container" *ngFor="let post of posts | async">
   <a [routerLink]="['../', 'profile']">{{(post.user | async)?.displayName}}</a>
-  <img *ngIf="post.photoURL" src="{{post.photoURL}}" alt="">
-  <div class="comment">
+  <div class="description">
     {{post.postText}}
+  </div>
+  <img *ngIf="post.photoURL" src="{{post.photoURL}}" (click)="openDialog()">
+  <div class="likes">
+  </div>
+
+  <button (click)="updateLikes()" mat-button>Like</button>
+  <button (click)="openField()" mat-button>Comment</button>
+  <div *ngIf="edited" class="write">
+    <textarea name="name"></textarea>
+    <button (click)="updateComment()" mat-button>Post</button>
+  </div>
+
+  <div class="comments">
   </div>
 
 </mat-card>

@@ -2,23 +2,24 @@
   max-width: 600px;
   margin: 20px auto;
   img{
-    margin-top: 20px;
-    margin-bottom: 50px;
-    width: 90%;
+    margin-top: 5px;
+    width: 100%;
     position: relative;
   }
   a{
     position: absolute;
     text-decoration: none;
-    color: black;
+    color: primary;
   }
-  .comment{
+  .description{
+    margin-top: 30px;
+    position: relative;
     width: 99%;
-    position: absolute;
+    height: auto;
   }
-  .delete-photo{
-    position: absolute;
-    top: 100px;
-    right: 30px;
+  textarea{
+    width: 99%;
   }
+  
+
 }
