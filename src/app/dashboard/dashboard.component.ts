@@ -11,15 +11,23 @@ import{ AuthService } from '../core/auth.service';
 })
 export class DashboardComponent implements OnInit {
 
-  edited = false;
+  user: any;
 
   posts: any;
+
   post: any = {
     photoURL: "",
     postText: "",
   }
   id: string;
-  comment: ""
+
+  comment: any = {
+    user_id: "",
+    post_id: "",
+    commentText: ""
+  };
+
+  postcomment: any;
 
   constructor(
     private _pS: PostService,
@@ -31,18 +39,16 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.posts = this._pS.getAllActivePosts();
-  }
 
-  addComment(){
     this._auth.user.subscribe(
       user => {
-        this._cS.createComment(user.user_id, user.post_id, user.commentText).then(
-          comment => {
-            return this.router.navigate(['comment', post_id]);
-          }
-        );
+        this.user = user;
       }
-    )
+  )
+  }
+
+  addComment(post){
+    this._cS.createComment(this.user.uid, post.id, this.comment.commentText);
   }
 
   updateText(){
@@ -53,8 +59,13 @@ export class DashboardComponent implements OnInit {
     this._pS.deletePhoto(this.id, this.posts.imageName)
   }
 
-  openField(){
-    this.edited = true;
+  openField(post){
+    this.postcomment = post.id;
+    console.log(post.id)
+  }
+
+  valueChange(event){
+    this.comment.commentText = event.target.value;
   }
 
   updateComment(){

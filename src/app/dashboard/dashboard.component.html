@@ -6,15 +6,17 @@
   <img *ngIf="post.photoURL" src="{{post.photoURL}}" (click)="openDialog()">
   <div class="likes">
   </div>
-
   <button (click)="updateLikes()" mat-button>Like</button>
-  <button (click)="openField()" mat-button>Comment</button>
-  <div *ngIf="edited" class="write">
-    <textarea name="name"></textarea>
-    <button (click)="updateComment()" mat-button>Post</button>
+  <button (click)="openField(post)" mat-button>Comment</button>
+  <div *ngIf="post.id == postcomment">
+    <textarea (input)="valueChange($event)" name="name"></textarea>
+    <button class="post" (click)="addComment(post)" mat-button>Post</button>
   </div>
-
-  <div class="comments">
+  <div *ngIf="post.id == postcomment" class="comments">
+    <ul *ngFor="let comment of post.comments | async">
+      <li class="user">{{(comment.user | async)?.displayName}}</li>
+      <li>{{comment.commentText}}</li>
+    </ul>
   </div>
 
 </mat-card>

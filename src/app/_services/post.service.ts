@@ -4,6 +4,7 @@ import { AuthService } from '../core/auth.service';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { UserService } from './user.service';
 import { Observable } from 'rxjs/Observable';
+import { CommentService } from '../_services/comment.service';
 
 @Injectable()
 export class PostService {
@@ -11,7 +12,8 @@ export class PostService {
   constructor(
     private _aS: AuthService,
     private afs: AngularFirestore,
-    private _uS: UserService
+    private _uS: UserService,
+    private _cS: CommentService
     ) { }
 
   uploadPicture(upload, id){
@@ -93,12 +95,14 @@ export class PostService {
               post => {
                 const data = post.payload.doc.data();
                 const user = this._uS.getProfile(data.user_uid).valueChanges();
+                const comments = this._cS.getAllComments(post.payload.doc.id);
 
                 return {
                   id: post.payload.doc.id,
                   user_uid: data.user_uid,
                   description: data.description,
                   user: user,
+                  comments: comments,
                   photoURL: data.photoURL,
                   postText: data.postText
                 }
