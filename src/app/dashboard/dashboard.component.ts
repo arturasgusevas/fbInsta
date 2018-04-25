@@ -3,6 +3,9 @@ import { PostService } from '../_services/post.service';
 import { CommentService } from '../_services/comment.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import{ AuthService } from '../core/auth.service';
+import { ModalComponent } from '../modal/modal.component';
+import { MatDialog } from '@angular/material';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -34,7 +37,9 @@ export class DashboardComponent implements OnInit {
     private _cS: CommentService,
     private _auth: AuthService,
     private router: Router,
-    private aR: ActivatedRoute
+    private aR: ActivatedRoute,
+    public modal: MatDialog,
+    public mD: MatDialog
     ) { }
 
   ngOnInit() {
@@ -44,7 +49,7 @@ export class DashboardComponent implements OnInit {
       user => {
         this.user = user;
       }
-  )
+    )
   }
 
   addComment(post){
@@ -59,9 +64,13 @@ export class DashboardComponent implements OnInit {
     this._pS.deletePhoto(this.id, this.posts.imageName)
   }
 
+  openModal(){
+    this.modal.open(ModalComponent);
+    alert('modal')
+  }
+
   openField(post){
     this.postcomment = post.id;
-    console.log(post.id)
   }
 
   valueChange(event){

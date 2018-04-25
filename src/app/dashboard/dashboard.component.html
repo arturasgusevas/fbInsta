@@ -3,7 +3,7 @@
   <div class="description">
     {{post.postText}}
   </div>
-  <img *ngIf="post.photoURL" src="{{post.photoURL}}" (click)="openDialog()">
+  <img *ngIf="post.photoURL" src="{{post.photoURL}}" (click)="openModal()">
   <div class="likes">
   </div>
   <button (click)="updateLikes()" mat-button>Like</button>

@@ -32,6 +32,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import {MatDialogModule} from '@angular/material/dialog'
 
 import { PostComponent } from './post/post.component';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -50,6 +51,9 @@ import { ModalComponent } from './modal/modal.component';
     PostComponent,
     ModalComponent
   ],
+  entryComponents: [
+    ModalComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -66,8 +70,9 @@ import { ModalComponent } from './modal/modal.component';
     MatTabsModule,
     MatStepperModule,
     AngularFirestoreModule,
-    AngularFireAuthModule
-  ],
+    AngularFireAuthModule,
+    MatDialogModule
+   ],
   providers: [AuthService, AuthGuard, UserService, PostService, CommentService],
   bootstrap: [AppComponent]
 })
