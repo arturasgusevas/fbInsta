@@ -3,10 +3,9 @@
   <div class="description">
     {{post.postText}}
   </div>
-  <img *ngIf="post.photoURL" src="{{post.photoURL}}" (click)="openModal()">
-  <div class="likes">
-  </div>
-  <button (click)="updateLikes()" mat-button>Like</button>
+  <img *ngIf="post.photoURL" src="{{post.photoURL}}" (click)="openDialog(post)">
+  <span>{{(post.likes | async)?.length}}</span>
+  <button (click)="addLike(post)" *ngIf="(post.likedPost | async)?.length < 1" mat-button>Like</button>
   <button (click)="openField(post)" mat-button>Comment</button>
   <div *ngIf="post.id == postcomment">
     <textarea (input)="valueChange($event)" name="name"></textarea>

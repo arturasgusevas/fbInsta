@@ -5,6 +5,7 @@ import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection 
 import { UserService } from './user.service';
 import { Observable } from 'rxjs/Observable';
 import { CommentService } from '../_services/comment.service';
+import { LikeService } from '../_services/like.service';
 
 @Injectable()
 export class PostService {
@@ -13,7 +14,8 @@ export class PostService {
     private _aS: AuthService,
     private afs: AngularFirestore,
     private _uS: UserService,
-    private _cS: CommentService
+    private _cS: CommentService,
+    private _likeS: LikeService
     ) { }
 
   uploadPicture(upload, id){
@@ -84,7 +86,7 @@ export class PostService {
         );
       }
 
-      getAllActivePosts(){
+      getAllActivePosts(uid){
         return this.afs.collection('posts',
         (ref) => ref
         .where('status', '==', 'active')
@@ -96,6 +98,8 @@ export class PostService {
                 const data = post.payload.doc.data();
                 const user = this._uS.getProfile(data.user_uid).valueChanges();
                 const comments = this._cS.getAllComments(post.payload.doc.id);
+                const likes = this._likeS.getAllLikes(post.payload.doc.id);
+                const likedPost = this._likeS.userLiked(uid, post.payload.doc.id);
 
                 return {
                   id: post.payload.doc.id,
@@ -103,6 +107,8 @@ export class PostService {
                   description: data.description,
                   user: user,
                   comments: comments,
+                  likes: likes,
+                  likedPost: likedPost,
                   photoURL: data.photoURL,
                   postText: data.postText
                 }
