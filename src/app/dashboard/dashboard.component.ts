@@ -55,8 +55,7 @@ export class DashboardComponent implements OnInit {
     this._auth.user.subscribe(
       user => {
         this.user = user;
-        
-          this.posts = this._pS.getAllActivePosts(user.uid);
+        this.posts = this._pS.getAllActivePosts(user.uid);
       }
     )
   }
